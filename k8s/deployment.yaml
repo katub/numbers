@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: katub-app
+spec:
+  selector:
+    matchLabels:
+      app: katub-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: katub-app
+    spec:
+      containers:
+        - name: app
+          image: katub/numbers:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: POSTGRES_USER
+              value: "myuser"
+            - name: POSTGRES_PASSWORD
+              value: "mypassword"
+            - name: POSTGRES_DB
+              value: "mydatabase"
+            - name: POSTGRES_HOST
+              value: "postgres-service"
+            - name: POSTGRES_PORT
+              value: "5432"
